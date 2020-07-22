@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <h2>This is a heading</h2>
+
+    <p>This is a paragraph.</p>
+    <p id="para-1">This is another paragraph.</p>
+    <div id="userdata"></div>
+    <input id="name">
+    <button id="btn-1">button 1</button>
+    <button id="btn-2">button 2</button>
+    <button id="btn-3">button 3</button>
+
+</body>
+<script>
+    $(document).ready(function () {
+
+        fetchData();
+        function fetchData() {
+
+            var action = "display";
+
+            $.ajax({
+                url: "include/data.php",
+                method: "POST",
+                data: { action: action },
+                success: function (data) {
+                    $("#userdata").html(data);
+                }
+            });
+        }
+
+        $("#btn-1").click(function () {
+            var action = $("#name").val();
+
+            $.ajax({
+
+                url: 'include/data.php',
+                method: 'POST',
+                data: { action: action },
+                success: function (data) {
+                    $("#userdata").html(data);
+                    $('#name').val(data); q
+                }
+            });
+        });
+
+        $("#btn-1").dblclick(function () {
+            alert("button double clicked");
+        });
+
+        $("#btn-2").mouseenter(function () {
+            $("#para-1").hide();
+        });
+
+        $("#btn-2").mouseleave(function () {
+            $("#para-1").animate({
+                left: '250px',
+                opacity: '0.5',
+                height: '150px',
+                width: '150px'
+            });
+        });
+
+
+    });
+</script>
+
+</html>
